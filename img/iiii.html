@@ -1,0 +1,1160 @@
+<!DOCTYPE html>
+<html lang="uk">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sweet Bloom</title>
+    <style>
+        :root {
+            --bg: #f7f1eb;
+            --card: rgba(255, 255, 255, 0.7);
+            --card-strong: #fffaf4;
+            --ink: #1f1d1a;
+            --muted: #6c625a;
+            --primary: #f26a4b;
+            --primary-dark: #d95c3f;
+            --secondary: #ffcc80;
+            --green: #9bcf7f;
+            --green-dark: #498a47;
+            --shadow: 0 24px 60px rgba(93, 67, 42, 0.12);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            color: var(--ink);
+            background:
+                radial-gradient(circle at top left, rgba(255, 204, 128, 0.35), transparent 18%),
+                radial-gradient(circle at bottom right, rgba(155, 207, 127, 0.22), transparent 20%),
+                var(--bg);
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        img {
+            max-width: 100%;
+            display: block;
+        }
+
+        .container {
+            width: min(1180px, calc(100% - 32px));
+            margin: 0 auto;
+        }
+
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            backdrop-filter: blur(12px);
+            background: rgba(247, 241, 235, 0.75);
+            border-bottom: 1px solid rgba(90, 79, 68, 0.08);
+        }
+
+        .topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            min-height: 82px;
+            gap: 24px;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 800;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+        }
+
+        .brand-mark {
+            width: 42px;
+            height: 42px;
+            border-radius: 14px;
+            display: grid;
+            place-items: center;
+            background: linear-gradient(135deg, #ffd39a, #f26a4b 60%, #d95c3f);
+            box-shadow: 0 10px 28px rgba(242, 106, 75, 0.32);
+            color: white;
+            font-size: 1.2rem;
+        }
+
+        nav ul,
+        .actions {
+            display: flex;
+            align-items: center;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        nav ul {
+            gap: 18px;
+        }
+
+        nav a {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--muted);
+            transition: color 0.2s ease;
+        }
+
+        nav a:hover {
+            color: var(--ink);
+        }
+
+        .actions {
+            gap: 12px;
+        }
+
+        .icon-btn {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            background: rgba(255, 255, 255, 0.66);
+            border: 1px solid rgba(31, 29, 26, 0.06);
+            box-shadow: 0 12px 24px rgba(92, 74, 57, 0.07);
+        }
+
+        .icon-btn svg {
+            width: 20px;
+            height: 20px;
+            stroke: var(--ink);
+            fill: none;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .hero {
+            padding: 52px 0 24px;
+        }
+
+        .hero-wrap {
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            align-items: center;
+            gap: 36px;
+        }.eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 16px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.7);
+            border: 1px solid rgba(31, 29, 26, 0.06);
+            color: var(--primary-dark);
+            font-weight: 700;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            font-size: 0.72rem;
+            box-shadow: 0 10px 30px rgba(90, 62, 42, 0.05);
+        }
+
+        .eyebrow::before {
+            content: "";
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), #ffba63);
+            box-shadow: 0 0 0 6px rgba(242, 106, 75, 0.12);
+        }
+
+        h1 {
+            margin: 22px 0 18px;
+            font-size: clamp(2.9rem, 5vw, 5rem);
+            line-height: 0.95;
+            letter-spacing: -0.06em;
+        }
+
+        .text-gradient {
+            background: linear-gradient(135deg, #201d1b 0%, #f26a4b 35%, #ffb26d 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .hero-copy p {
+            max-width: 560px;
+            font-size: 1.08rem;
+            line-height: 1.7;
+            color: var(--muted);
+            margin: 0 0 30px;
+        }
+
+        .actions-row {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+            margin-bottom: 30px;
+        }
+
+        .primary-btn,
+        .secondary-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 56px;
+            border-radius: 18px;
+            padding: 0 26px;
+            font-weight: 700;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .primary-btn {
+            background: linear-gradient(135deg, var(--primary), #ff9e5f);
+            color: white;
+            box-shadow: 0 18px 36px rgba(242, 106, 75, 0.29);
+        }
+
+        .secondary-btn {
+            background: rgba(255, 255, 255, 0.72);
+            border: 1px solid rgba(31, 29, 26, 0.06);
+            box-shadow: 0 14px 28px rgba(96, 72, 45, 0.05);
+        }
+
+        .primary-btn:hover,
+        .secondary-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .mini-stats {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(110px, 1fr));
+            gap: 18px;
+            max-width: 420px;
+        }
+
+        .mini-stats .stat {
+            background: rgba(255, 255, 255, 0.65);
+            border-radius: 22px;
+            padding: 18px 18px 14px;
+            border: 1px solid rgba(31, 29, 26, 0.05);
+            box-shadow: 0 16px 30px rgba(90, 67, 42, 0.05);
+        }
+
+        .stat strong {
+            display: block;
+            font-size: 1.5rem;
+            line-height: 1;
+            margin-bottom: 8px;
+        }
+
+        .stat span {
+            color: var(--muted);
+            font-size: 0.82rem;
+        }
+
+        .visual {
+            position: relative;
+            min-height: 560px;
+            display: grid;
+            place-items: center;
+        }
+
+        .product-stage {
+            position: relative;
+            width: min(100%, 520px);
+            height: 520px;
+            border-radius: 40px;
+            background: linear-gradient(135deg, rgba(255, 210, 151, 0.75), rgba(255, 255, 255, 0.35));
+            border: 1px solid rgba(109, 84, 60, 0.08);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+        }
+
+        .product-stage::before {
+            content: "";
+            position: absolute;
+            inset: 24px;
+            border-radius: 32px;
+            background: linear-gradient(135deg, rgba(255,255,255,0.56), rgba(255,255,255,0.22));
+        }.jar {
+            position: absolute;
+            inset: 120px 140px 60px 140px;
+            border-radius: 40px 40px 46px 46px;
+            background: linear-gradient(180deg, #fffffe 0%, #fffaf1 40%, #f7e4d0 100%);
+            box-shadow: 0 28px 50px rgba(91, 64, 41, 0.18);
+            border: 8px solid rgba(255,255,255,0.72);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            align-items: center;
+            z-index: 1;
+        }
+
+        .jar::before {
+            content: "";
+            position: absolute;
+            left: 18%;
+            right: 18%;
+            top: 5%;
+            height: 22%;
+            border-radius: 50%;
+            background: linear-gradient(180deg, rgba(255,255,255,0.9), rgba(255,255,255,0.35));
+            box-shadow: inset 0 -12px 16px rgba(179, 124, 78, 0.08);
+        }
+
+        .jar .label {
+            width: 70%;
+            padding: 16px 10px 18px;
+            margin-bottom: 20px;
+            border-radius: 18px;
+            background: linear-gradient(135deg, #f9d785, #f3a35b);
+            color: #3b2a1d;
+            text-align: center;
+            font-weight: 800;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.7);
+        }
+
+        .floating-card {
+            position: absolute;
+            z-index: 2;
+            background: rgba(255, 255, 255, 0.82);
+            border: 1px solid rgba(31, 29, 26, 0.05);
+            box-shadow: 0 25px 40px rgba(90, 63, 42, 0.12);
+            border-radius: 22px;
+            padding: 12px 14px;
+            backdrop-filter: blur(8px);
+        }
+
+        .floating-card strong {
+            display: block;
+            font-size: 0.82rem;
+            color: var(--muted);
+            margin-bottom: 4px;
+        }
+
+        .floating-card span {
+            font-size: 1.2rem;
+            font-weight: 800;
+        }
+
+        .card-one {
+            left: 44px;
+            top: 120px;
+        }
+
+        .card-two {
+            right: 44px;
+            bottom: 90px;
+        }
+
+        .section {
+            padding: 54px 0;
+        }
+
+        .section-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: end;
+            gap: 16px;
+            margin-bottom: 28px;
+        }
+
+        .section-label {
+            color: var(--primary-dark);
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            font-weight: 700;
+            font-size: 0.72rem;
+        }
+
+        h2 {
+            margin: 14px 0 0;
+            font-size: clamp(2rem, 3vw, 3rem);
+            letter-spacing: -0.04em;
+        }
+
+        .section-head p {
+            margin: 0;
+            color: var(--muted);
+            max-width: 430px;
+            line-height: 1.7;
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 26px;
+        }
+
+        .info-card {
+            background: rgba(255, 255, 255, 0.72);
+            border: 1px solid rgba(31, 29, 26, 0.04);
+            border-radius: 28px;
+            box-shadow: 0 18px 32px rgba(90, 68, 45, 0.06);
+            padding: 30px 24px;
+        }
+
+        .icon-wrap {
+            width: 64px;
+            height: 64px;
+            margin-bottom: 18px;
+            border-radius: 18px;
+            display: grid;
+            place-items: center;
+            background: linear-gradient(135deg, #fff0dc, #ffd9c1);
+            font-size: 1.7rem;
+        }
+
+        .info-card h3 {
+            margin: 0 0 12px;
+            font-size: 1.4rem;
+        }
+
+        .info-card p {
+            margin: 0;
+            color: var(--muted);
+            line-height: 1.7;
+        }
+
+        .goods-grid {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 22px;
+        }.product-card {
+            background: rgba(255, 255, 255, 0.72);
+            border: 1px solid rgba(31, 29, 26, 0.04);
+            border-radius: 30px;
+            overflow: hidden;
+            box-shadow: 0 18px 34px rgba(90, 68, 45, 0.06);
+        }
+
+        .product-thumb {
+            height: 250px;
+            background: linear-gradient(135deg, rgba(255, 201, 122, 0.8), rgba(255, 255, 255, 0.4));
+            position: relative;
+            display: grid;
+            place-items: center;
+        }
+
+        .product-thumb::before {
+            content: "";
+            width: 130px;
+            height: 150px;
+            border-radius: 28px 28px 35px 35px;
+            background: linear-gradient(180deg, #fffefb 0%, #fceade 100%);
+            box-shadow: inset 0 -14px 18px rgba(203, 144, 92, 0.08), 0 18px 28px rgba(126, 86, 46, 0.12);
+            border: 6px solid rgba(255,255,255,0.7);
+        }
+
+        .product-thumb::after {
+            content: "";
+            position: absolute;
+            width: 90px;
+            height: 30px;
+            border-radius: 50%;
+            top: 36px;
+            background: linear-gradient(180deg, rgba(255,255,255,0.8), rgba(255,255,255,0.1));
+            filter: blur(2px);
+        }
+
+        .product-body {
+            padding: 22px 20px 24px;
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 8px 12px;
+            background: #fff2dd;
+            border-radius: 999px;
+            color: var(--primary-dark);
+            font-size: 0.72rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .product-card h3 {
+            margin: 0 0 10px;
+            font-size: 1.35rem;
+        }
+
+        .rating {
+            color: #f4a63d;
+            letter-spacing: 0.08em;
+            font-size: 0.95rem;
+            margin-bottom: 14px;
+        }
+
+        .product-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+            margin-top: 18px;
+        }
+
+        .price {
+            font-size: 1.5rem;
+            font-weight: 800;
+        }
+
+        .add-btn {
+            min-width: 90px;
+            min-height: 42px;
+            border: 0;
+            border-radius: 14px;
+            background: linear-gradient(135deg, var(--primary), #ff9e5f);
+            color: white;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .flavors {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 20px;
+        }
+
+        .flavor-card {
+            position: relative;
+            overflow: hidden;
+            padding: 30px 20px;
+            background: rgba(255, 255, 255, 0.72);
+            border: 1px solid rgba(31, 29, 26, 0.04);
+            border-radius: 28px;
+            min-height: 190px;
+            box-shadow: 0 18px 32px rgba(90, 68, 45, 0.05);
+        }
+
+        .flavor-card::before {
+            content: "";
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            right: -32px;
+            top: -46px;
+            opacity: 0.85;
+            background: var(--tone, linear-gradient(135deg, #f0b2a3, #f9d78c));
+        }
+
+        .flavor-card h3 {
+            position: relative;
+            z-index: 1;
+            margin: 0 0 12px;
+            font-size: 1.4rem;
+        }
+
+        .flavor-card p {
+            position: relative;
+            z-index: 1;
+            margin: 0;
+            color: var(--muted);
+            line-height: 1.7;
+        }
+
+        .contacts-wrap {
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 26px;
+            align-items: stretch;
+        }
+
+        .contact-card,
+        .newsletter {
+            background: rgba(255, 255, 255, 0.72);
+            border: 1px solid rgba(31, 29, 26, 0.04);
+            border-radius: 32px;
+            box-shadow: 0 18px 36px rgba(90, 68, 45, 0.06);
+        }.contact-card {
+            padding: 32px 28px;
+        }
+
+        .contact-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            margin-top: 18px;
+            font-weight: 700;
+            color: var(--ink);
+        }
+
+        .contact-link .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--green), var(--green-dark));
+            box-shadow: 0 0 0 7px rgba(155, 207, 127, 0.15);
+        }
+
+        .info-list {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 18px;
+            margin-top: 24px;
+        }
+
+        .contact-item {
+            padding: 18px 16px;
+            border-radius: 20px;
+            background: rgba(247, 241, 235, 0.8);
+        }
+
+        .contact-item strong {
+            display: block;
+            margin-bottom: 6px;
+            font-size: 0.84rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--muted);
+        }
+
+        .newsletter {
+            padding: 30px 26px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            background: linear-gradient(135deg, rgba(242,106,75,0.08), rgba(255,205,145,0.15));
+        }
+
+        .newsletter h3 {
+            margin: 0 0 12px;
+            font-size: 1.9rem;
+            letter-spacing: -0.04em;
+        }
+
+        .newsletter p {
+            margin: 0 0 20px;
+            color: var(--muted);
+            line-height: 1.7;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .newsletter input {
+            flex: 1 1 200px;
+            min-height: 54px;
+            border: 1px solid rgba(31, 29, 26, 0.08);
+            border-radius: 16px;
+            background: rgba(255,255,255,0.7);
+            padding: 0 18px;
+            font: inherit;
+        }
+
+        .newsletter button {
+            min-width: 150px;
+            min-height: 54px;
+            border: 0;
+            border-radius: 16px;
+            background: linear-gradient(135deg, var(--green), var(--green-dark));
+            color: white;
+            font: inherit;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        footer {
+            padding: 28px 0 44px;
+            color: var(--muted);
+        }
+
+        .footer-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+            border-top: 1px solid rgba(31, 29, 26, 0.08);
+            padding-top: 22px;
+        }
+
+        @media (max-width: 980px) {
+            .hero-wrap,
+            .contacts-wrap {
+                grid-template-columns: 1fr;
+            }
+
+            .goods-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .flavors {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+
+        @media (max-width: 700px) {
+            .topbar {
+                flex-wrap: wrap;
+                justify-content: center;
+                padding: 18px 0;
+            }
+
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .about-grid,
+            .goods-grid,
+            .flavors,
+            .info-list {
+                grid-template-columns: 1fr;
+            }
+
+            .section-head {
+                display: block;
+            }
+
+            .mini-stats {
+                grid-template-columns: 1fr;
+            }
+
+            .product-stage {
+                height: 440px;
+            }
+
+            .jar {
+                inset: 110px 90px 40px 90px;
+            }.contact-card {
+            padding: 32px 28px;
+        }
+
+        .contact-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            margin-top: 18px;
+            font-weight: 700;
+            color: var(--ink);
+        }
+
+        .contact-link .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--green), var(--green-dark));
+            box-shadow: 0 0 0 7px rgba(155, 207, 127, 0.15);
+        }
+
+        .info-list {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 18px;
+            margin-top: 24px;
+        }
+
+        .contact-item {
+            padding: 18px 16px;
+            border-radius: 20px;
+            background: rgba(247, 241, 235, 0.8);
+        }
+
+        .contact-item strong {
+            display: block;
+            margin-bottom: 6px;
+            font-size: 0.84rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--muted);
+        }
+
+        .newsletter {
+            padding: 30px 26px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            background: linear-gradient(135deg, rgba(242,106,75,0.08), rgba(255,205,145,0.15));
+        }
+
+        .newsletter h3 {
+            margin: 0 0 12px;
+            font-size: 1.9rem;
+            letter-spacing: -0.04em;
+        }
+
+        .newsletter p {
+            margin: 0 0 20px;
+            color: var(--muted);
+            line-height: 1.7;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .newsletter input {
+            flex: 1 1 200px;
+            min-height: 54px;
+            border: 1px solid rgba(31, 29, 26, 0.08);
+            border-radius: 16px;
+            background: rgba(255,255,255,0.7);
+            padding: 0 18px;
+            font: inherit;
+        }
+
+        .newsletter button {
+            min-width: 150px;
+            min-height: 54px;
+            border: 0;
+            border-radius: 16px;
+            background: linear-gradient(135deg, var(--green), var(--green-dark));
+            color: white;
+            font: inherit;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        footer {
+            padding: 28px 0 44px;
+            color: var(--muted);
+        }
+
+        .footer-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+            border-top: 1px solid rgba(31, 29, 26, 0.08);
+            padding-top: 22px;
+        }
+
+        @media (max-width: 980px) {
+            .hero-wrap,
+            .contacts-wrap {
+                grid-template-columns: 1fr;
+            }
+
+            .goods-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .flavors {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+
+        @media (max-width: 700px) {
+            .topbar {
+                flex-wrap: wrap;
+                justify-content: center;
+                padding: 18px 0;
+            }
+
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .about-grid,
+            .goods-grid,
+            .flavors,
+            .info-list {
+                grid-template-columns: 1fr;
+            }
+
+            .section-head {
+                display: block;
+            }
+
+            .mini-stats {
+                grid-template-columns: 1fr;
+            }
+
+            .product-stage {
+                height: 440px;
+            }
+
+            .jar {
+                inset: 110px 90px 40px 90px;
+            }.footer-row {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+    </style>
+    </head>
+    
+    <body>
+        <header>
+            <div class="container topbar">
+                <a href="#main" class="brand" aria-label="Sweet Bloom">
+                    <span class="brand-mark">S</span>
+                    <span>Sweet Bloom</span>
+                </a>
+    
+                <nav aria-label="Main navigation">
+                    <ul>
+                        <li><a href="#main">Головна</a></li>
+                        <li><a href="#about">Про нас</a></li>
+                        <li><a href="#goods">Товари</a></li>
+                        <li><a href="#tastes">Смаки</a></li>
+                        <li><a href="#contacts">Контакти</a></li>
+                    </ul>
+                </nav>
+    
+                <ul class="actions" aria-label="Actions">
+                    <li>
+                        <a href="#" class="icon-btn" aria-label="Wishlist">
+                            <svg viewBox="0 0 24 24" aria-hidden="true">
+                                <path
+                                    d="M12 21s-8.5-5.5-10.2-10.7A6.2 6.2 0 0 1 12 5.5a6.2 6.2 0 0 1 10.2 4.8C20.5 15.5 12 21 12 21z" />
+                            </svg>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="icon-btn" aria-label="Cart">
+                            <svg viewBox="0 0 24 24" aria-hidden="true">
+                                <circle cx="9" cy="19" r="1.5" />
+                                <circle cx="18" cy="19" r="1.5" />
+                                <path d="M3 4h2l2.5 10.5h9.7L19 7H7" />
+                            </svg>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </header>
+    
+        <main>
+            <section id="main" class="hero">
+                <div class="container hero-wrap">
+                    <div class="hero-copy">
+                        <div class="eyebrow">Натуральна насолода</div>
+                        <h1>Солодкі моменти <span class="text-gradient">з любов’ю</span> до смаку</h1>
+                        <p>
+                            Створюємо міні-лакомства з щирих інгредієнтів, які дарують відчуття радості в кожному укусі —
+                            від свіжості ягід до тепла карамелі.
+                        </p>
+                        <div class="actions-row">
+                            <a href="#goods" class="primary-btn">Замовити</a>
+                            <a href="#about" class="secondary-btn">Дізнатися більше</a>
+                        </div>
+                        <div class="mini-stats" aria-label="Company statistics">
+                            <div class="stat">
+                                <strong>12k+</strong>
+                                <span>щасливих клієнтів</span>
+                            </div>
+                            <div class="stat">
+                                <strong>48h</strong>
+                                <span>доставка</span>
+                            </div>
+                            <div class="stat">
+                                <strong>4.9</strong>
+                                <span>оцінка покупців</span>
+                            </div>
+                        </div>
+                    </div>
+    
+                    <div class="visual" aria-hidden="true">
+                        <div class="product-stage">
+                            <div class="floating-card card-one">
+                                <strong>Натурально</strong>
+                                <span>100%</span>
+                            </div>
+                            <div class="jar">
+                                <div class="label">Sweet Bloom</div>
+                            </div>
+                            <div class="floating-card card-two">
+                                <strong>Смак</strong>
+                                <span>Ягідний</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section><section id="about" class="section">
+                <div class="container">
+                    <div class="section-head">
+                        <div>
+                            <div class="section-label">Про нас</div>
+                            <h2>Смак, який нагадує про найкращі моменти життя</h2>
+                        </div>
+                        <p>Ми любимо прості інгредієнти й вироби, які створюють атмосферу затишку, радості та повсякденної насолоди.
+                        </p>
+                    </div>
+            
+                    <div class="about-grid">
+                        <article class="info-card">
+                            <div class="icon-wrap">🌿</div>
+                            <h3>Натуральні інгредієнти</h3>
+                            <p>Вибираємо лише свіжі фрукти, ягоди, горіхи та вершки без зайвих добавок та штучних ароматизаторів.
+                            </p>
+                        </article>
+                        <article class="info-card">
+                            <div class="icon-wrap">✨</div>
+                            <h3>Ручне приготування</h3>
+                            <p>Кожна партія готується з увагою до деталей, щоб ви отримали не просто продукт, а справжнє відчуття
+                                окремого смаку.</p>
+                        </article>
+                        <article class="info-card">
+                            <div class="icon-wrap">🎁</div>
+                            <h3>Для кожного дня</h3>
+                            <p>Від подарунків до повсякденної маленької радості — наші ласощі підходять для особливих моментів та
+                                звичайних вечорів.</p>
+                        </article>
+                    </div>
+                </div>
+            </section>
+            
+            <section id="goods" class="section">
+                <div class="container">
+                    <div class="section-head">
+                        <div>
+                            <div class="section-label">Товари</div>
+                            <h2>Найулюбленіші смаки</h2>
+                        </div>
+                        <p>Збалансовані рецепти, приємна текстура та аромат, який пахне природою з першого ж укусу.</p>
+                    </div>
+            
+                    <div class="goods-grid">
+                        <article class="product-card">
+                            <div class="product-thumb"></div>
+                            <div class="product-body">
+                                <div class="tag">Популярне</div>
+                                <h3>Ягідний бум</h3>
+                                <div class="rating">★★★★★</div>
+                                <div class="product-meta">
+                                    <div class="price">299 ₴</div>
+                                    <button class="add-btn">Купити</button>
+                                </div>
+                            </div>
+                        </article>
+            
+                        <article class="product-card">
+                            <div class="product-thumb"
+                                style="background: linear-gradient(135deg, rgba(255, 200, 154, 0.8), rgba(255, 242, 210, 0.5));">
+                            </div>
+                            <div class="product-body">
+                                <div class="tag">Нова</div>
+                                <h3>Карамельна радість</h3>
+                                <div class="rating">★★★★★</div>
+                                <div class="product-meta">
+                                    <div class="price">329 ₴</div>
+                                    <button class="add-btn">Купити</button>
+                                </div>
+                            </div>
+                        </article>
+            
+                        <article class="product-card">
+                            <div class="product-thumb"
+                                style="background: linear-gradient(135deg, rgba(187, 228, 151, 0.8), rgba(255, 255, 255, 0.42));">
+                            </div>
+                            <div class="product-body">
+                                <div class="tag">Вітамінно</div>
+                                <h3>Лісова свіжість</h3>
+                                <div class="rating">★★★★★</div>
+                                <div class="product-meta">
+                                    <div class="price">279 ₴</div>
+                                    <button class="add-btn">Купити</button>
+                                </div>
+                            </div>
+                        </article><article class="product-card">
+                            <div class="product-thumb"
+                                style="background: linear-gradient(135deg, rgba(255, 174, 183, 0.75), rgba(255, 233, 179, 0.5));"></div>
+                            <div class="product-body">
+                                <div class="tag">Ліміт</div>
+                                <h3>Малина-ваніль</h3>
+                                <div class="rating">★★★★★</div>
+                                <div class="product-meta">
+                                    <div class="price">349 ₴</div>
+                                    <button class="add-btn">Купити</button>
+                                </div>
+                            </div>
+                        </article>
+                        </div>
+                        </div>
+                        </section>
+                        
+                        <section id="tastes" class="section">
+                            <div class="container">
+                                <div class="section-head">
+                                    <div>
+                                        <div class="section-label">Смаки</div>
+                                        <h2>Світ смаків у кожній коробці</h2>
+                                    </div>
+                                    <p>Поєднуємо вишукані аромати з ніжною текстурою, щоб кожен смак залишався в пам’яті надовго.</p>
+                                </div>
+                        
+                                <div class="flavors">
+                                    <article class="flavor-card" style="--tone: linear-gradient(135deg, #f7c0b0, #ffebae);">
+                                        <h3>Кавун</h3>
+                                        <p>Свіжий, соковитий смак літа з легкою солодкістю та соковитим післясмаком.</p>
+                                    </article>
+                                    <article class="flavor-card" style="--tone: linear-gradient(135deg, #f7d388, #f8af69);">
+                                        <h3>Апельсин</h3>
+                                        <p>Яскравий цитрусовий аромат, який освіжає і додає енергії в будь-який день.</p>
+                                    </article>
+                                    <article class="flavor-card" style="--tone: linear-gradient(135deg, #9bd492, #dfe7a7);">
+                                        <h3>Ліщина</h3>
+                                        <p>Глибокий оріховий смак із кремовою текстурою та майже карамельним відтінком.</p>
+                                    </article>
+                                    <article class="flavor-card" style="--tone: linear-gradient(135deg, #e6b5f2, #f9d7d7);">
+                                        <h3>Малина</h3>
+                                        <p>Ніжний ягідний смак із трохи терпкою ноткою і легким, соковитим післясмаком.</p>
+                                    </article>
+                                </div>
+                            </div>
+                        </section>
+                        
+                        <section id="contacts" class="section">
+                            <div class="container contacts-wrap">
+                                <div class="contact-card">
+                                    <div class="section-label">Контакти</div>
+                                    <h2>Пишіть, ми завжди на зв’язку</h2>
+                                    <a class="contact-link" href="tel:+380991234567"><span class="dot"></span> +38 (099) 123 45 67</a>
+                                    <a class="contact-link" href="mailto:hello@sweetbloom.ua"><span class="dot"></span> hello@sweetbloom.ua</a>
+                        
+                                    <div class="info-list">
+                                        <div class="contact-item">
+                                            <strong>Адреса</strong>
+                                            м. Київ, вул. Лісківська 14
+                                        </div>
+                                        <div class="contact-item">
+                                            <strong>Графік</strong>
+                                            Пн–Сб, 9:00–19:00
+                                        </div>
+                                        <div class="contact-item">
+                                            <strong>Instagram</strong>
+                                            @sweetbloom.ua
+                                        </div>
+                                        <div class="contact-item">
+                                            <strong>Безкоштовно</strong>
+                                            Доставка від 900 ₴
+                                        </div>
+                                    </div>
+                                </div><aside class="newsletter">
+                                    <h3>Підписуйся на новини</h3>
+                                    <p>Отримуйте нові смаки, сезонні пропозиції та персональні знижки на пошту.</p>
+                                    <form class="form-row">
+                                        <input type="email" placeholder="Ваш e-mail" aria-label="Email">
+                                        <button type="submit">Підписатися</button>
+                                    </form>
+                                </aside>
+                                </div>
+                                </section>
+                                </main>
+                                
+                                <footer>
+                                    <div class="container footer-row">
+                                        <div>© 2026 Sweet Bloom</div>
+                                        <div>Made with care for your sweetest moments</div>
+                                    </div>
+                                </footer>
+                                </body>
+                                
+                                </html>
