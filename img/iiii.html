@@ -4,24 +4,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sweet Bloom</title>
+    <title>Rainbow Icecream — Спробуй найкраще морозиво</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=Nunito:wght@500;600;700;800&display=swap"
+        rel="stylesheet">
     <style>
-        :root {
-            --bg: #f7f1eb;
-            --card: rgba(255, 255, 255, 0.7);
-            --card-strong: #fffaf4;
-            --ink: #1f1d1a;
-            --muted: #6c625a;
-            --primary: #f26a4b;
-            --primary-dark: #d95c3f;
-            --secondary: #ffcc80;
-            --green: #9bcf7f;
-            --green-dark: #498a47;
-            --shadow: 0 24px 60px rgba(93, 67, 42, 0.12);
-        }
-
+        /* ================= БАЗОВЫЕ СТИЛИ ================= */
         * {
             box-sizing: border-box;
+            margin: 0;
+            padding: 0;
         }
 
         html {
@@ -29,1132 +23,1060 @@
         }
 
         body {
-            margin: 0;
-            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-            color: var(--ink);
-            background:
-                radial-gradient(circle at top left, rgba(255, 204, 128, 0.35), transparent 18%),
-                radial-gradient(circle at bottom right, rgba(155, 207, 127, 0.22), transparent 20%),
-                var(--bg);
+            font-family: 'Nunito', sans-serif;
+            color: #0F0F0F;
+            background-color: #FFA3B5;
+            /* Многослойные плавные волны на розовом фоне, как на скрине */
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1440' height='640' viewBox='0 0 1440 640'%3E%3Cpath fill='%23FF92A8' fill-opacity='0.65' d='M0,65 C140,15 240,115 380,75 C520,35 620,120 760,80 C900,40 1040,125 1180,70 C1300,25 1380,85 1440,65 L1440,640 L0,640 Z'/%3E%3Cpath fill='%23FF839B' fill-opacity='0.55' d='M0,250 C180,190 310,310 490,255 C670,200 790,320 970,260 C1150,200 1290,295 1440,245 L1440,640 L0,640 Z'/%3E%3Cpath fill='%23FF728E' fill-opacity='0.5' d='M0,450 C160,395 290,515 470,455 C650,395 810,510 990,455 C1170,400 1310,495 1440,445 L1440,640 L0,640 Z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: top center;
+            background-size: 100% 660px;
+            line-height: 1.45;
+            overflow-x: hidden;
+        }
+
+        h1,
+        h2,
+        h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+            color: #0F0F0F;
+        }
+
+        ul {
+            list-style: none;
         }
 
         a {
-            color: inherit;
             text-decoration: none;
+            color: inherit;
+            transition: color 0.2s ease, transform 0.25s ease;
         }
 
         img {
             max-width: 100%;
             display: block;
+            transition: transform 0.35s ease;
         }
 
-        .container {
-            width: min(1180px, calc(100% - 32px));
-            margin: 0 auto;
+        button {
+            font-family: 'Nunito', sans-serif;
+            cursor: pointer;
+            transition: transform 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease;
         }
 
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 14px rgba(0, 0, 0, 0.14);
+        }
+
+        /* ================= ШАПКА КАК НА СКРИНШОТЕ ================= */
         header {
-            position: sticky;
-            top: 0;
-            z-index: 10;
-            backdrop-filter: blur(12px);
-            background: rgba(247, 241, 235, 0.75);
-            border-bottom: 1px solid rgba(90, 79, 68, 0.08);
+            padding-top: 28px;
+            position: relative;
+            z-index: 20;
         }
 
-        .topbar {
+        header nav {
+            background-color: #FFFFFF;
+            border: 1.2px solid #222222;
+            border-radius: 999px;
+            max-width: 750px;
+            height: 60px;
+            margin: 0 auto;
+            padding: 0 32px;
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            min-height: 82px;
+            justify-content: space-between;
+            position: relative;
+        }
+
+        .nav-left,
+        .nav-right-wrap {
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-left {
             gap: 24px;
         }
 
-        .brand {
+        .nav-right-wrap {
+            gap: 28px;
+        }
+
+        .nav-right {
             display: flex;
             align-items: center;
-            gap: 12px;
-            font-weight: 800;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-            font-size: 0.9rem;
+            gap: 24px;
         }
 
-        .brand-mark {
-            width: 42px;
-            height: 42px;
-            border-radius: 14px;
-            display: grid;
-            place-items: center;
-            background: linear-gradient(135deg, #ffd39a, #f26a4b 60%, #d95c3f);
-            box-shadow: 0 10px 28px rgba(242, 106, 75, 0.32);
-            color: white;
-            font-size: 1.2rem;
-        }
-
-        nav ul,
-        .actions {
-            display: flex;
-            align-items: center;
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        nav ul {
-            gap: 18px;
-        }
-
-        nav a {
-            font-size: 0.95rem;
+        header nav a {
+            font-size: 15px;
             font-weight: 600;
-            color: var(--muted);
-            transition: color 0.2s ease;
+            color: #141414;
+            white-space: nowrap;
         }
 
-        nav a:hover {
-            color: var(--ink);
+        header nav a:hover {
+            color: #E84A6F;
         }
 
-        .actions {
-            gap: 12px;
+        /* Центральный круглый логотип на голубом фоне, выступающий за края капсулы */
+        .logo-center {
+            position: absolute;
+            left: 46%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 96px;
+            height: 96px;
+            border-radius: 50%;
+            background-color: #DDF0FF;
+            border: 1px solid #9EB3C2;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 4px;
+            z-index: 5;
+        }
+
+        .logo-center:hover {
+            transform: translate(-50%, -50%) scale(1.06);
+        }
+
+        .logo-center img.logo1 {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            border-radius: 50%;
+        }
+
+        /* Иконки сердечка и корзины справа внутри капсулы */
+        .nav-icons {
+            display: flex;
+            align-items: center;
+            gap: 16px;
         }
 
         .icon-btn {
-            width: 42px;
-            height: 42px;
-            border-radius: 50%;
-            display: grid;
-            place-items: center;
-            background: rgba(255, 255, 255, 0.66);
-            border: 1px solid rgba(31, 29, 26, 0.06);
-            box-shadow: 0 12px 24px rgba(92, 74, 57, 0.07);
-        }
-
-        .icon-btn svg {
-            width: 20px;
-            height: 20px;
-            stroke: var(--ink);
-            fill: none;
-            stroke-width: 2;
-            stroke-linecap: round;
-            stroke-linejoin: round;
-        }
-
-        .hero {
-            padding: 52px 0 24px;
-        }
-
-        .hero-wrap {
-            display: grid;
-            grid-template-columns: 1.1fr 0.9fr;
-            align-items: center;
-            gap: 36px;
-        }.eyebrow {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            padding: 10px 16px;
-            border-radius: 999px;
-            background: rgba(255, 255, 255, 0.7);
-            border: 1px solid rgba(31, 29, 26, 0.06);
-            color: var(--primary-dark);
-            font-weight: 700;
-            letter-spacing: 0.04em;
-            text-transform: uppercase;
-            font-size: 0.72rem;
-            box-shadow: 0 10px 30px rgba(90, 62, 42, 0.05);
-        }
-
-        .eyebrow::before {
-            content: "";
-            width: 9px;
-            height: 9px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, var(--primary), #ffba63);
-            box-shadow: 0 0 0 6px rgba(242, 106, 75, 0.12);
-        }
-
-        h1 {
-            margin: 22px 0 18px;
-            font-size: clamp(2.9rem, 5vw, 5rem);
-            line-height: 0.95;
-            letter-spacing: -0.06em;
-        }
-
-        .text-gradient {
-            background: linear-gradient(135deg, #201d1b 0%, #f26a4b 35%, #ffb26d 100%);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-        }
-
-        .hero-copy p {
-            max-width: 560px;
-            font-size: 1.08rem;
-            line-height: 1.7;
-            color: var(--muted);
-            margin: 0 0 30px;
-        }
-
-        .actions-row {
+            background: transparent;
+            border: none;
+            padding: 0;
             display: flex;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 16px;
-            margin-bottom: 30px;
-        }
-
-        .primary-btn,
-        .secondary-btn {
-            display: inline-flex;
             align-items: center;
             justify-content: center;
-            min-height: 56px;
-            border-radius: 18px;
-            padding: 0 26px;
-            font-weight: 700;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            box-shadow: none !important;
         }
 
-        .primary-btn {
-            background: linear-gradient(135deg, var(--primary), #ff9e5f);
-            color: white;
-            box-shadow: 0 18px 36px rgba(242, 106, 75, 0.29);
+        .icon-btn:hover {
+            transform: scale(1.15);
         }
 
-        .secondary-btn {
-            background: rgba(255, 255, 255, 0.72);
-            border: 1px solid rgba(31, 29, 26, 0.06);
-            box-shadow: 0 14px 28px rgba(96, 72, 45, 0.05);
-        }
-
-        .primary-btn:hover,
-        .secondary-btn:hover {
-            transform: translateY(-2px);
-        }
-
-        .mini-stats {
+        /* ================= СЕКЦИЯ 1: HERO ================= */
+        #hero {
+            max-width: 1080px;
+            margin: 0 auto;
+            padding: 46px 24px 75px;
             display: grid;
-            grid-template-columns: repeat(3, minmax(110px, 1fr));
-            gap: 18px;
-            max-width: 420px;
-        }
-
-        .mini-stats .stat {
-            background: rgba(255, 255, 255, 0.65);
-            border-radius: 22px;
-            padding: 18px 18px 14px;
-            border: 1px solid rgba(31, 29, 26, 0.05);
-            box-shadow: 0 16px 30px rgba(90, 67, 42, 0.05);
-        }
-
-        .stat strong {
-            display: block;
-            font-size: 1.5rem;
-            line-height: 1;
-            margin-bottom: 8px;
-        }
-
-        .stat span {
-            color: var(--muted);
-            font-size: 0.82rem;
-        }
-
-        .visual {
-            position: relative;
-            min-height: 560px;
-            display: grid;
-            place-items: center;
-        }
-
-        .product-stage {
-            position: relative;
-            width: min(100%, 520px);
-            height: 520px;
-            border-radius: 40px;
-            background: linear-gradient(135deg, rgba(255, 210, 151, 0.75), rgba(255, 255, 255, 0.35));
-            border: 1px solid rgba(109, 84, 60, 0.08);
-            box-shadow: var(--shadow);
-            overflow: hidden;
-        }
-
-        .product-stage::before {
-            content: "";
-            position: absolute;
-            inset: 24px;
-            border-radius: 32px;
-            background: linear-gradient(135deg, rgba(255,255,255,0.56), rgba(255,255,255,0.22));
-        }.jar {
-            position: absolute;
-            inset: 120px 140px 60px 140px;
-            border-radius: 40px 40px 46px 46px;
-            background: linear-gradient(180deg, #fffffe 0%, #fffaf1 40%, #f7e4d0 100%);
-            box-shadow: 0 28px 50px rgba(91, 64, 41, 0.18);
-            border: 8px solid rgba(255,255,255,0.72);
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-end;
+            grid-template-columns: 1fr 1.12fr;
+            grid-template-areas:
+                "title image"
+                "text image"
+                "btn image";
             align-items: center;
-            z-index: 1;
+            column-gap: 28px;
         }
 
-        .jar::before {
-            content: "";
-            position: absolute;
-            left: 18%;
-            right: 18%;
-            top: 5%;
-            height: 22%;
-            border-radius: 50%;
-            background: linear-gradient(180deg, rgba(255,255,255,0.9), rgba(255,255,255,0.35));
-            box-shadow: inset 0 -12px 16px rgba(179, 124, 78, 0.08);
+        .hero-title-box {
+            grid-area: title;
+            position: relative;
+            align-self: end;
+            margin-bottom: 16px;
         }
 
-        .jar .label {
-            width: 70%;
-            padding: 16px 10px 18px;
-            margin-bottom: 20px;
-            border-radius: 18px;
-            background: linear-gradient(135deg, #f9d785, #f3a35b);
-            color: #3b2a1d;
-            text-align: center;
+        #hero h1 {
+            font-size: 62px;
             font-weight: 800;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-            font-size: 0.75rem;
-            box-shadow: inset 0 1px 0 rgba(255,255,255,0.7);
+            line-height: 1.03;
+            letter-spacing: -1px;
         }
 
-        .floating-card {
+        /* Три маленьких декоративных рожка рядом со словом "Спробуй" */
+        .mini-cones-decor {
             position: absolute;
-            z-index: 2;
-            background: rgba(255, 255, 255, 0.82);
-            border: 1px solid rgba(31, 29, 26, 0.05);
-            box-shadow: 0 25px 40px rgba(90, 63, 42, 0.12);
-            border-radius: 22px;
-            padding: 12px 14px;
-            backdrop-filter: blur(8px);
+            top: 4px;
+            left: 315px;
+            width: 68px;
+            height: 58px;
+            pointer-events: none;
         }
 
-        .floating-card strong {
-            display: block;
-            font-size: 0.82rem;
-            color: var(--muted);
+        #hero p {
+            grid-area: text;
+            font-size: 14px;
+            font-weight: 600;
+            color: #1A1A1A;
+            max-width: 400px;
+            margin-bottom: 24px;
+        }
+
+        .hero-btn {
+            grid-area: btn;
+            justify-self: start;
+            background-color: #F5CD56;
+            color: #141414;
+            border: 1.5px solid #1E1E1E;
+            border-radius: 999px;
+            padding: 12px 28px;
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        .hero-btn:hover {
+            background-color: #f0be2d;
+        }
+
+        #hero img.hero-image {
+            grid-area: image;
+            width: 100%;
+            max-width: 540px;
+            height: auto;
+            justify-self: end;
+            filter: drop-shadow(0 14px 22px rgba(0, 0, 0, 0.12));
+        }
+
+        #hero img.hero-image:hover {
+            transform: scale(1.03) translateY(-4px);
+        }
+
+        /* ================= СЕКЦИЯ 2: МИ ДБАЄМО ПРО ТЕБЕ ================= */
+        #menu {
+            background-color: #DCEEFF;
+            padding: 0 calc((100% - 1080px) / 2 + 24px) 60px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: auto auto auto auto;
+            grid-template-areas:
+                "splash heading"
+                "splash desc1"
+                "story milk"
+                "buttons milk";
+            column-gap: 44px;
+            row-gap: 16px;
+            position: relative;
+        }
+
+        #menu img.hero-image[src*="Untitled design (6) 1.png"] {
+            grid-area: splash;
+            width: 100%;
+            max-width: 450px;
+            height: auto;
+            justify-self: start;
+            align-self: start;
+        }
+
+        #menu h2 {
+            grid-area: heading;
+            font-size: 40px;
+            text-align: right;
+            align-self: end;
+            padding-top: 52px;
             margin-bottom: 4px;
         }
 
-        .floating-card span {
-            font-size: 1.2rem;
-            font-weight: 800;
-        }
-
-        .card-one {
-            left: 44px;
-            top: 120px;
-        }
-
-        .card-two {
-            right: 44px;
-            bottom: 90px;
-        }
-
-        .section {
-            padding: 54px 0;
-        }
-
-        .section-head {
-            display: flex;
-            justify-content: space-between;
-            align-items: end;
-            gap: 16px;
-            margin-bottom: 28px;
-        }
-
-        .section-label {
-            color: var(--primary-dark);
-            text-transform: uppercase;
-            letter-spacing: 0.12em;
-            font-weight: 700;
-            font-size: 0.72rem;
-        }
-
-        h2 {
-            margin: 14px 0 0;
-            font-size: clamp(2rem, 3vw, 3rem);
-            letter-spacing: -0.04em;
-        }
-
-        .section-head p {
-            margin: 0;
-            color: var(--muted);
-            max-width: 430px;
-            line-height: 1.7;
-        }
-
-        .about-grid {
-            display: grid;
-            grid-template-columns: repeat(3, minmax(0, 1fr));
-            gap: 26px;
-        }
-
-        .info-card {
-            background: rgba(255, 255, 255, 0.72);
-            border: 1px solid rgba(31, 29, 26, 0.04);
-            border-radius: 28px;
-            box-shadow: 0 18px 32px rgba(90, 68, 45, 0.06);
-            padding: 30px 24px;
-        }
-
-        .icon-wrap {
-            width: 64px;
-            height: 64px;
+        #menu p:nth-of-type(1) {
+            grid-area: desc1;
+            text-align: right;
+            max-width: 440px;
+            justify-self: end;
+            align-self: start;
+            font-size: 14px;
+            font-weight: 600;
+            color: #2E2E2E;
             margin-bottom: 18px;
-            border-radius: 18px;
-            display: grid;
-            place-items: center;
-            background: linear-gradient(135deg, #fff0dc, #ffd9c1);
-            font-size: 1.7rem;
         }
 
-        .info-card h3 {
-            margin: 0 0 12px;
-            font-size: 1.4rem;
+        #menu p:nth-of-type(2) {
+            grid-area: story;
+            font-size: 14px;
+            font-weight: 600;
+            color: #2E2E2E;
+            max-width: 445px;
+            align-self: end;
+            margin-top: 12px;
         }
 
-        .info-card p {
-            margin: 0;
-            color: var(--muted);
-            line-height: 1.7;
+        #menu img.hero-image[src*="Untitled design (7) 1.png"] {
+            grid-area: milk;
+            width: 100%;
+            max-width: 490px;
+            height: auto;
+            justify-self: end;
+            align-self: end;
+            margin-bottom: -25px;
         }
 
-        .goods-grid {
-            display: grid;
-            grid-template-columns: repeat(4, minmax(0, 1fr));
-            gap: 22px;
-        }.product-card {
-            background: rgba(255, 255, 255, 0.72);
-            border: 1px solid rgba(31, 29, 26, 0.04);
-            border-radius: 30px;
-            overflow: hidden;
-            box-shadow: 0 18px 34px rgba(90, 68, 45, 0.06);
-        }
-
-        .product-thumb {
-            height: 250px;
-            background: linear-gradient(135deg, rgba(255, 201, 122, 0.8), rgba(255, 255, 255, 0.4));
-            position: relative;
-            display: grid;
-            place-items: center;
-        }
-
-        .product-thumb::before {
-            content: "";
-            width: 130px;
-            height: 150px;
-            border-radius: 28px 28px 35px 35px;
-            background: linear-gradient(180deg, #fffefb 0%, #fceade 100%);
-            box-shadow: inset 0 -14px 18px rgba(203, 144, 92, 0.08), 0 18px 28px rgba(126, 86, 46, 0.12);
-            border: 6px solid rgba(255,255,255,0.7);
-        }
-
-        .product-thumb::after {
-            content: "";
-            position: absolute;
-            width: 90px;
-            height: 30px;
-            border-radius: 50%;
-            top: 36px;
-            background: linear-gradient(180deg, rgba(255,255,255,0.8), rgba(255,255,255,0.1));
-            filter: blur(2px);
-        }
-
-        .product-body {
-            padding: 22px 20px 24px;
-        }
-
-        .tag {
-            display: inline-block;
-            padding: 8px 12px;
-            background: #fff2dd;
+        #menu button {
+            grid-area: buttons;
+            justify-self: start;
+            align-self: start;
+            padding: 11px 24px;
             border-radius: 999px;
-            color: var(--primary-dark);
-            font-size: 0.72rem;
             font-weight: 700;
+            font-size: 13px;
+            border: 1.5px solid #222;
+            margin-top: 8px;
+        }
+
+        #menu button:first-of-type {
+            background-color: #F5CD56;
+            color: #1E1E1E;
+        }
+
+        #menu button:last-of-type {
+            background-color: #FFFFFF;
+            color: #1E1E1E;
+            border-color: #D8C99B;
+            margin-left: 185px;
+        }
+
+        /* ================= СЕКЦИЯ 3: НАШ АСОРТИМЕНТ ================= */
+        #offers {
+            background-color: #FFD6E2;
+            padding: 65px calc((100% - 1080px) / 2 + 24px) 115px;
+            position: relative;
+            z-index: 2;
+        }
+
+        #offers h2 {
+            text-align: center;
+            font-size: 36px;
+            margin-bottom: 95px;
+        }
+
+        #offers>ul {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 28px;
+            max-width: 960px;
+            margin: 0 auto;
+        }
+
+        #offers>ul>li {
+            background-color: #DCF0FF;
+            border-radius: 22px;
+            padding: 0 24px 28px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.04);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        #offers>ul>li:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 14px 28px rgba(0, 0, 0, 0.1);
+        }
+
+        #offers>ul>li>img:first-child {
+            height: 170px;
+            width: auto;
+            object-fit: contain;
+            margin-top: -78px;
             margin-bottom: 12px;
         }
 
-        .product-card h3 {
-            margin: 0 0 10px;
-            font-size: 1.35rem;
+        #offers h3 {
+            font-size: 22px;
+            margin-bottom: 10px;
         }
 
-        .rating {
-            color: #f4a63d;
-            letter-spacing: 0.08em;
-            font-size: 0.95rem;
+        #offers>ul>li>img:nth-of-type(2) {
+            width: 44px;
+            height: 44px;
+            object-fit: contain;
             margin-bottom: 14px;
         }
 
-        .product-meta {
+        #offers p {
+            font-size: 13px;
+            font-weight: 600;
+            color: #3A3A3A;
+            margin-bottom: 22px;
+            flex-grow: 1;
+        }
+
+        #offers button {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            background-color: #F7B2C4;
+            border: 1.5px solid #222;
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            gap: 10px;
-            margin-top: 18px;
+            justify-content: center;
         }
 
-        .price {
-            font-size: 1.5rem;
-            font-weight: 800;
+        #offers button:hover {
+            background-color: #F5CD56;
+            transform: scale(1.12);
         }
 
-        .add-btn {
-            min-width: 90px;
-            min-height: 42px;
-            border: 0;
-            border-radius: 14px;
-            background: linear-gradient(135deg, var(--primary), #ff9e5f);
-            color: white;
-            font-weight: 700;
-            cursor: pointer;
+        #offers button img {
+            width: 18px;
+            height: auto;
         }
 
-        .flavors {
+        /* ================= СЕКЦИЯ 4: НЕБЕСНІ СМАКИ + ВКУСЫ ================= */
+        #app {
+            background-color: #DCEEFF;
+            padding: 0 calc((100% - 1080px) / 2 + 24px) 80px;
             display: grid;
-            grid-template-columns: repeat(4, minmax(0, 1fr));
-            gap: 20px;
-        }
-
-        .flavor-card {
+            grid-template-columns: 1fr 1fr;
+            grid-template-areas:
+                "pills pills"
+                "cone title"
+                "cone text"
+                "cone buttons";
+            align-items: center;
+            column-gap: 48px;
             position: relative;
-            overflow: hidden;
-            padding: 30px 20px;
-            background: rgba(255, 255, 255, 0.72);
-            border: 1px solid rgba(31, 29, 26, 0.04);
-            border-radius: 28px;
-            min-height: 190px;
-            box-shadow: 0 18px 32px rgba(90, 68, 45, 0.05);
         }
 
-        .flavor-card::before {
+        #app::before {
             content: "";
             position: absolute;
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            right: -32px;
-            top: -46px;
-            opacity: 0.85;
-            background: var(--tone, linear-gradient(135deg, #f0b2a3, #f9d78c));
+            top: -36px;
+            left: 0;
+            width: 100%;
+            height: 40px;
+            background-color: #DCEEFF;
+            border-top-left-radius: 50% 36px;
+            border-top-right-radius: 50% 36px;
         }
 
-        .flavor-card h3 {
+        #app>ul {
+            grid-area: pills;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 16px;
             position: relative;
-            z-index: 1;
-            margin: 0 0 12px;
-            font-size: 1.4rem;
+            z-index: 3;
+            transform: translateY(-28px);
+            margin-bottom: 24px;
         }
 
-        .flavor-card p {
+        #app>ul>li {
+            padding: 10px 28px;
+            border-radius: 999px;
+            border: 1.5px solid #222;
+            font-weight: 800;
+            font-size: 14px;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+            transition: transform 0.25s ease;
+        }
+
+        #app>ul>li:hover {
+            transform: translateY(-5px) scale(1.06) rotate(0deg) !important;
+        }
+
+        #app>ul>li:nth-child(1) {
+            background-color: #FCE9B5;
+            transform: rotate(-8deg) translateY(6px);
+        }
+
+        #app>ul>li:nth-child(2) {
+            background-color: #B484BD;
+            transform: rotate(-4deg) translateY(2px);
+        }
+
+        #app>ul>li:nth-child(3) {
+            background-color: #8D5544;
+            color: #FFF;
+            transform: rotate(-1deg);
+        }
+
+        #app>ul>li:nth-child(4) {
+            background-color: #F497A9;
+            transform: rotate(2deg);
+        }
+
+        #app>ul>li:nth-child(5) {
+            background-color: #9CC98D;
+            transform: rotate(5deg) translateY(3px);
+        }
+
+        #app>ul>li:nth-child(6) {
+            background-color: #F6C85F;
+            transform: rotate(8deg) translateY(8px);
+        }
+
+        #app>img[src*="Group 63.png"] {
+            grid-area: cone;
+            width: 100%;
+            max-width: 450px;
+            justify-self: center;
+        }
+
+        #app h2 {
+            grid-area: title;
+            font-size: 40px;
+            line-height: 1.08;
+            text-align: center;
+            align-self: end;
+            margin-bottom: 14px;
+        }
+
+        #app>img[src*="Group 56.png"] {
+            grid-area: title;
+            width: 58px;
+            justify-self: start;
+            margin-left: 42px;
+            align-self: end;
+            margin-bottom: 18px;
+        }
+
+        #app p {
+            grid-area: text;
+            font-size: 14px;
+            font-weight: 600;
+            color: #3A3A3A;
+            text-align: center;
+            max-width: 440px;
+            justify-self: center;
+            margin-bottom: 22px;
+        }
+
+        #app button {
+            grid-area: buttons;
+            padding: 12px 24px;
+            border-radius: 999px;
+            font-weight: 700;
+            font-size: 14px;
+            border: 1.5px solid #222;
+            justify-self: center;
+        }
+
+        #app button:first-of-type {
+            background-color: #F5CD56;
+            color: #1E1E1E;
+            margin-right: 145px;
+        }
+
+        #app button:last-of-type {
+            background-color: #FFFFFF;
+            color: #1E1E1E;
+            border-color: #D8C99B;
+            margin-left: 115px;
+        }
+
+        /* ================= СЕКЦИЯ 5: КОНТАКТЫ + ПОТЕКИ ГЛАЗУРИ ================= */
+        #contact {
+            background-color: #FFD6E2;
+            padding: 115px calc((100% - 1080px) / 2 + 24px) 70px;
             position: relative;
-            z-index: 1;
-            margin: 0;
-            color: var(--muted);
-            line-height: 1.7;
-        }
-
-        .contacts-wrap {
             display: grid;
-            grid-template-columns: 1.1fr 0.9fr;
-            gap: 26px;
-            align-items: stretch;
+            grid-template-columns: 1fr auto;
+            grid-template-areas:
+                "form photo"
+                "socials photo";
+            align-items: center;
+            gap: 20px 40px;
         }
 
-        .contact-card,
-        .newsletter {
-            background: rgba(255, 255, 255, 0.72);
-            border: 1px solid rgba(31, 29, 26, 0.04);
-            border-radius: 32px;
-            box-shadow: 0 18px 36px rgba(90, 68, 45, 0.06);
-        }.contact-card {
-            padding: 32px 28px;
+        #contact::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 92px;
+            background-repeat: repeat-x;
+            background-position: top center;
+            background-size: 360px 92px;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='360' height='92' viewBox='0 0 360 92'%3E%3Cpath fill='%23ffffff' d='M0,0 L360,0 L360,34 C350,34 348,68 338,68 C328,68 326,28 312,28 C298,28 296,86 284,86 C272,86 270,32 254,32 C238,32 236,62 224,62 C212,62 210,26 192,26 C174,26 172,90 160,90 C148,90 146,34 130,34 C114,34 112,66 100,66 C88,66 86,28 68,28 C50,28 48,78 36,78 C24,78 22,32 0,34 Z'/%3E%3Crect x='25' y='10' width='8' height='3' rx='1.5' fill='%23FF6B8B' transform='rotate(25 25 10)'/%3E%3Crect x='65' y='15' width='8' height='3' rx='1.5' fill='%234ECDC4' transform='rotate(-20 65 15)'/%3E%3Crect x='115' y='12' width='8' height='3' rx='1.5' fill='%23FFD166' transform='rotate(40 115 12)'/%3E%3Crect x='158' y='22' width='8' height='3' rx='1.5' fill='%23A06CD5' transform='rotate(-35 158 22)'/%3E%3Crect x='205' y='11' width='8' height='3' rx='1.5' fill='%23FF6B8B' transform='rotate(15 205 11)'/%3E%3Crect x='255' y='16' width='8' height='3' rx='1.5' fill='%2306D6A0' transform='rotate(-25 255 16)'/%3E%3Crect x='305' y='12' width='8' height='3' rx='1.5' fill='%23FFD166' transform='rotate(30 305 12)'/%3E%3Crect x='338' y='24' width='8' height='3' rx='1.5' fill='%234ECDC4' transform='rotate(-15 338 24)'/%3E%3C/svg%3E");
         }
 
-        .contact-link {
-            display: inline-flex;
+        #contact form {
+            grid-area: form;
+            display: flex;
             align-items: center;
             gap: 12px;
-            margin-top: 18px;
+            max-width: 480px;
+        }
+
+        #contact input {
+            flex: 1;
+            padding: 12px 18px;
+            border-radius: 10px;
+            border: 1.5px solid #B8A5AC;
+            background-color: #FFFFFF;
+            font-family: 'Nunito', sans-serif;
+            font-size: 14px;
+            outline: none;
+        }
+
+        #contact button {
+            background-color: #F5CD56;
+            color: #1E1E1E;
+            border: 1.5px solid #222;
+            border-radius: 10px;
+            padding: 12px 24px;
             font-weight: 700;
-            color: var(--ink);
         }
 
-        .contact-link .dot {
-            width: 12px;
-            height: 12px;
+        #contact ul {
+            grid-area: socials;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        #contact ul img {
+            width: 38px;
+            height: 38px;
+            object-fit: contain;
+        }
+
+        #contact>img[src*="Ellipse 7.png"] {
+            grid-area: photo;
+            width: 260px;
+            height: 260px;
             border-radius: 50%;
-            background: linear-gradient(135deg, var(--green), var(--green-dark));
-            box-shadow: 0 0 0 7px rgba(155, 207, 127, 0.15);
+            object-fit: cover;
+            box-shadow: 0 10px 24px rgba(0, 0, 0, 0.1);
         }
 
-        .info-list {
+        /* ================= ФУТЕР ================= */
+        footer {
+            background-color: #F4CE5C;
+            padding: 32px 0 0;
             display: grid;
-            grid-template-columns: repeat(2, minmax(0, 1fr));
-            gap: 18px;
-            margin-top: 24px;
+            grid-template-columns: auto auto 1fr;
+            grid-template-areas:
+                "logo nav form"
+                "copy copy copy";
+            align-items: center;
+            gap: 24px 48px;
         }
 
-        .contact-item {
-            padding: 18px 16px;
-            border-radius: 20px;
-            background: rgba(247, 241, 235, 0.8);
+        footer>img[src*="logo.png"] {
+            grid-area: logo;
+            width: 96px;
+            height: 96px;
+            object-fit: contain;
+            margin-left: max(24px, calc((100% - 1080px) / 2 + 24px));
         }
 
-        .contact-item strong {
-            display: block;
-            margin-bottom: 6px;
-            font-size: 0.84rem;
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
-            color: var(--muted);
+        footer nav {
+            grid-area: nav;
         }
 
-        .newsletter {
-            padding: 30px 26px;
+        footer nav ul {
             display: flex;
             flex-direction: column;
-            justify-content: center;
-            background: linear-gradient(135deg, rgba(242,106,75,0.08), rgba(255,205,145,0.15));
+            gap: 8px;
         }
 
-        .newsletter h3 {
-            margin: 0 0 12px;
-            font-size: 1.9rem;
-            letter-spacing: -0.04em;
-        }
-
-        .newsletter p {
-            margin: 0 0 20px;
-            color: var(--muted);
-            line-height: 1.7;
-        }
-
-        .form-row {
-            display: flex;
-            gap: 12px;
-            flex-wrap: wrap;
-        }
-
-        .newsletter input {
-            flex: 1 1 200px;
-            min-height: 54px;
-            border: 1px solid rgba(31, 29, 26, 0.08);
-            border-radius: 16px;
-            background: rgba(255,255,255,0.7);
-            padding: 0 18px;
-            font: inherit;
-        }
-
-        .newsletter button {
-            min-width: 150px;
-            min-height: 54px;
-            border: 0;
-            border-radius: 16px;
-            background: linear-gradient(135deg, var(--green), var(--green-dark));
-            color: white;
-            font: inherit;
+        footer nav a {
+            font-size: 14px;
             font-weight: 700;
-            cursor: pointer;
         }
 
-        footer {
-            padding: 28px 0 44px;
-            color: var(--muted);
+        footer>input {
+            grid-area: form;
+            justify-self: end;
+            margin-right: calc(max(24px, calc((100% - 1080px) / 2 + 24px)) + 135px);
+            padding: 10px 14px;
+            border-radius: 6px;
+            border: 1.5px solid #444;
+            background-color: #FFFFFF;
+            font-family: 'Nunito', sans-serif;
+            font-size: 13px;
+            width: 220px;
+            outline: none;
         }
 
-        .footer-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 16px;
-            border-top: 1px solid rgba(31, 29, 26, 0.08);
-            padding-top: 22px;
-        }
-
-        @media (max-width: 980px) {
-            .hero-wrap,
-            .contacts-wrap {
-                grid-template-columns: 1fr;
-            }
-
-            .goods-grid {
-                grid-template-columns: repeat(2, minmax(0, 1fr));
-            }
-
-            .flavors {
-                grid-template-columns: repeat(2, minmax(0, 1fr));
-            }
-        }
-
-        @media (max-width: 700px) {
-            .topbar {
-                flex-wrap: wrap;
-                justify-content: center;
-                padding: 18px 0;
-            }
-
-            nav ul {
-                flex-wrap: wrap;
-                justify-content: center;
-            }
-
-            .about-grid,
-            .goods-grid,
-            .flavors,
-            .info-list {
-                grid-template-columns: 1fr;
-            }
-
-            .section-head {
-                display: block;
-            }
-
-            .mini-stats {
-                grid-template-columns: 1fr;
-            }
-
-            .product-stage {
-                height: 440px;
-            }
-
-            .jar {
-                inset: 110px 90px 40px 90px;
-            }.contact-card {
-            padding: 32px 28px;
-        }
-
-        .contact-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 12px;
-            margin-top: 18px;
+        footer>button {
+            grid-area: form;
+            justify-self: end;
+            margin-right: max(24px, calc((100% - 1080px) / 2 + 24px));
+            background-color: #1A1A1A;
+            color: #FFFFFF;
+            border: none;
+            border-radius: 6px;
+            padding: 10px 20px;
             font-weight: 700;
-            color: var(--ink);
         }
 
-        .contact-link .dot {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, var(--green), var(--green-dark));
-            box-shadow: 0 0 0 7px rgba(155, 207, 127, 0.15);
+        footer>p {
+            grid-area: copy;
+            background-color: #0F0F0F;
+            color: #FFFFFF;
+            text-align: center;
+            padding: 12px 16px;
+            font-size: 12px;
+            width: 100%;
         }
 
-        .info-list {
-            display: grid;
-            grid-template-columns: repeat(2, minmax(0, 1fr));
-            gap: 18px;
-            margin-top: 24px;
-        }
+        /* ================= АДАПТИВНОСТЬ ================= */
+        @media (max-width: 960px) {
+            #hero h1 {
+                font-size: 46px;
+            }
 
-        .contact-item {
-            padding: 18px 16px;
-            border-radius: 20px;
-            background: rgba(247, 241, 235, 0.8);
-        }
+            .mini-cones-decor {
+                display: none;
+            }
 
-        .contact-item strong {
-            display: block;
-            margin-bottom: 6px;
-            font-size: 0.84rem;
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
-            color: var(--muted);
-        }
+            #offers>ul {
+                grid-template-columns: repeat(2, 1fr);
+                row-gap: 95px;
+            }
 
-        .newsletter {
-            padding: 30px 26px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            background: linear-gradient(135deg, rgba(242,106,75,0.08), rgba(255,205,145,0.15));
-        }
-
-        .newsletter h3 {
-            margin: 0 0 12px;
-            font-size: 1.9rem;
-            letter-spacing: -0.04em;
-        }
-
-        .newsletter p {
-            margin: 0 0 20px;
-            color: var(--muted);
-            line-height: 1.7;
-        }
-
-        .form-row {
-            display: flex;
-            gap: 12px;
-            flex-wrap: wrap;
-        }
-
-        .newsletter input {
-            flex: 1 1 200px;
-            min-height: 54px;
-            border: 1px solid rgba(31, 29, 26, 0.08);
-            border-radius: 16px;
-            background: rgba(255,255,255,0.7);
-            padding: 0 18px;
-            font: inherit;
-        }
-
-        .newsletter button {
-            min-width: 150px;
-            min-height: 54px;
-            border: 0;
-            border-radius: 16px;
-            background: linear-gradient(135deg, var(--green), var(--green-dark));
-            color: white;
-            font: inherit;
-            font-weight: 700;
-            cursor: pointer;
-        }
-
-        footer {
-            padding: 28px 0 44px;
-            color: var(--muted);
-        }
-
-        .footer-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 16px;
-            border-top: 1px solid rgba(31, 29, 26, 0.08);
-            padding-top: 22px;
-        }
-
-        @media (max-width: 980px) {
-            .hero-wrap,
-            .contacts-wrap {
+            #app {
                 grid-template-columns: 1fr;
-            }
-
-            .goods-grid {
-                grid-template-columns: repeat(2, minmax(0, 1fr));
-            }
-
-            .flavors {
-                grid-template-columns: repeat(2, minmax(0, 1fr));
-            }
-        }
-
-        @media (max-width: 700px) {
-            .topbar {
-                flex-wrap: wrap;
-                justify-content: center;
-                padding: 18px 0;
-            }
-
-            nav ul {
-                flex-wrap: wrap;
-                justify-content: center;
-            }
-
-            .about-grid,
-            .goods-grid,
-            .flavors,
-            .info-list {
-                grid-template-columns: 1fr;
-            }
-
-            .section-head {
-                display: block;
-            }
-
-            .mini-stats {
-                grid-template-columns: 1fr;
-            }
-
-            .product-stage {
-                height: 440px;
-            }
-
-            .jar {
-                inset: 110px 90px 40px 90px;
-            }.footer-row {
-                flex-direction: column;
+                grid-template-areas:
+                    "pills"
+                    "title"
+                    "text"
+                    "buttons"
+                    "cone";
                 text-align: center;
+            }
+
+            #app>img[src*="Group 56.png"] {
+                justify-self: center;
+                margin-left: 0;
+            }
+
+            #app button:first-of-type,
+            #app button:last-of-type {
+                margin: 0 8px 24px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            header nav {
+                height: auto;
+                border-radius: 24px;
+                padding: 16px;
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            .logo-center {
+                position: static;
+                transform: none;
+                order: -1;
+                width: 76px;
+                height: 76px;
+            }
+
+            .logo-center:hover {
+                transform: scale(1.06);
+            }
+
+            .nav-left,
+            .nav-right-wrap,
+            .nav-right {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 14px;
+            }
+
+            #hero {
+                grid-template-columns: 1fr;
+                grid-template-areas:
+                    "title"
+                    "text"
+                    "btn"
+                    "image";
+                text-align: center;
+            }
+
+            #hero p,
+            .hero-btn,
+            #hero img.hero-image {
+                margin-left: auto;
+                margin-right: auto;
+                justify-self: center;
+            }
+
+            #menu {
+                grid-template-columns: 1fr;
+                grid-template-areas:
+                    "heading"
+                    "desc1"
+                    "splash"
+                    "story"
+                    "buttons"
+                    "milk";
+                text-align: center;
+                padding: 40px 20px 60px;
+            }
+
+            #menu h2,
+            #menu p:nth-of-type(1) {
+                text-align: center;
+                margin: 0 auto;
+            }
+
+            #menu img.hero-image,
+            #menu button {
+                justify-self: center;
+                margin: 0 auto;
+            }
+
+            #menu button:last-of-type {
+                margin-top: 10px;
+                margin-left: auto;
+            }
+
+            #offers>ul {
+                grid-template-columns: 1fr;
+                max-width: 380px;
+            }
+
+            #contact {
+                grid-template-columns: 1fr;
+                grid-template-areas:
+                    "form"
+                    "socials"
+                    "photo";
+                text-align: center;
+                padding: 105px 20px 60px;
+            }
+
+            #contact form {
+                flex-direction: column;
+                margin: 0 auto;
+                width: 100%;
+            }
+
+            #contact input,
+            #contact button {
+                width: 100%;
+            }
+
+            #contact ul,
+            #contact>img[src*="Ellipse 7.png"] {
+                justify-content: center;
+                margin: 0 auto;
+            }
+
+            footer {
+                grid-template-columns: 1fr;
+                grid-template-areas:
+                    "logo"
+                    "nav"
+                    "input"
+                    "btn"
+                    "copy";
+                text-align: center;
+                gap: 16px;
+            }
+
+            footer>img[src*="logo.png"],
+            footer>input,
+            footer>button {
+                margin: 0 auto;
+                justify-self: center;
             }
         }
     </style>
-    </head>
-    
-    <body>
-        <header>
-            <div class="container topbar">
-                <a href="#main" class="brand" aria-label="Sweet Bloom">
-                    <span class="brand-mark">S</span>
-                    <span>Sweet Bloom</span>
-                </a>
-    
-                <nav aria-label="Main navigation">
-                    <ul>
-                        <li><a href="#main">Головна</a></li>
-                        <li><a href="#about">Про нас</a></li>
-                        <li><a href="#goods">Товари</a></li>
-                        <li><a href="#tastes">Смаки</a></li>
-                        <li><a href="#contacts">Контакти</a></li>
-                    </ul>
-                </nav>
-    
-                <ul class="actions" aria-label="Actions">
-                    <li>
-                        <a href="#" class="icon-btn" aria-label="Wishlist">
-                            <svg viewBox="0 0 24 24" aria-hidden="true">
-                                <path
-                                    d="M12 21s-8.5-5.5-10.2-10.7A6.2 6.2 0 0 1 12 5.5a6.2 6.2 0 0 1 10.2 4.8C20.5 15.5 12 21 12 21z" />
-                            </svg>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="icon-btn" aria-label="Cart">
-                            <svg viewBox="0 0 24 24" aria-hidden="true">
-                                <circle cx="9" cy="19" r="1.5" />
-                                <circle cx="18" cy="19" r="1.5" />
-                                <path d="M3 4h2l2.5 10.5h9.7L19 7H7" />
-                            </svg>
-                        </a>
-                    </li>
+</head>
+
+<body>
+
+    <header>
+        <nav>
+            <ul class="nav-left">
+                <li><a href="#hero">Головна</a></li>
+                <li><a href="#menu">Про нас</a></li>
+                <li><a href="#offers">Товари</a></li>
+            </ul>
+
+            <a href="#hero" class="logo-center">
+                <img src="img/logo1.png" alt="Rainbow Ice Cream" class="logo1">
+            </a>
+
+            <div class="nav-right-wrap">
+                <ul class="nav-right">
+                    <li><a href="#app">Смаки</a></li>
+                    <li><a href="#contact">Контакти</a></li>
                 </ul>
+
+                <div class="nav-icons">
+                    <!-- Розовое сердечко как в макете -->
+                    <button type="button" class="icon-btn" aria-label="Улюблене">
+                        <svg width="24" height="22" viewBox="0 0 24 22" fill="#FF66A3" stroke="#141414"
+                            stroke-width="1.3">
+                            <path
+                                d="M12 20.5C12 20.5 2 14.2 2 7.2C2 4.1 4.4 1.8 7.3 1.8C9.2 1.8 10.9 2.8 12 4.3C13.1 2.8 14.8 1.8 16.7 1.8C19.6 1.8 22 4.1 22 7.2C22 14.2 12 20.5 12 20.5Z" />
+                        </svg>
+                    </button>
+
+                    <!-- Тележка с сердечками как в макете -->
+                    <button type="button" class="icon-btn" aria-label="Кошик">
+                        <svg width="28" height="26" viewBox="0 0 28 26" fill="none">
+                            <!-- Мини-сердечки и шарики в тележке -->
+                            <circle cx="12" cy="5" r="2.3" fill="#FF66A3" stroke="#141414" stroke-width="1" />
+                            <circle cx="17.5" cy="5.5" r="2.1" fill="#F5CD56" stroke="#141414" stroke-width="1" />
+                            <circle cx="22" cy="5" r="1.9" fill="#8CD99B" stroke="#141414" stroke-width="1" />
+                            <!-- Корпус тележки -->
+                            <path d="M2 4H6L8.8 17.5H22.5L25 8H7" stroke="#141414" stroke-width="1.7"
+                                stroke-linecap="round" stroke-linejoin="round" />
+                            <line x1="8" y1="11.5" x2="24" y2="11.5" stroke="#141414" stroke-width="1.2" />
+                            <line x1="8.5" y1="14.5" x2="23" y2="14.5" stroke="#141414" stroke-width="1.2" />
+                            <line x1="12" y1="8" x2="12.5" y2="17.5" stroke="#141414" stroke-width="1.2" />
+                            <line x1="16" y1="8" x2="16" y2="17.5" stroke="#141414" stroke-width="1.2" />
+                            <line x1="20" y1="8" x2="19.5" y2="17.5" stroke="#141414" stroke-width="1.2" />
+                            <!-- Колеса -->
+                            <circle cx="10.5" cy="21.5" r="2" fill="#141414" />
+                            <circle cx="20.5" cy="21.5" r="2" fill="#141414" />
+                        </svg>
+                    </button>
+                </div>
             </div>
-        </header>
-    
-        <main>
-            <section id="main" class="hero">
-                <div class="container hero-wrap">
-                    <div class="hero-copy">
-                        <div class="eyebrow">Натуральна насолода</div>
-                        <h1>Солодкі моменти <span class="text-gradient">з любов’ю</span> до смаку</h1>
-                        <p>
-                            Створюємо міні-лакомства з щирих інгредієнтів, які дарують відчуття радості в кожному укусі —
-                            від свіжості ягід до тепла карамелі.
-                        </p>
-                        <div class="actions-row">
-                            <a href="#goods" class="primary-btn">Замовити</a>
-                            <a href="#about" class="secondary-btn">Дізнатися більше</a>
-                        </div>
-                        <div class="mini-stats" aria-label="Company statistics">
-                            <div class="stat">
-                                <strong>12k+</strong>
-                                <span>щасливих клієнтів</span>
-                            </div>
-                            <div class="stat">
-                                <strong>48h</strong>
-                                <span>доставка</span>
-                            </div>
-                            <div class="stat">
-                                <strong>4.9</strong>
-                                <span>оцінка покупців</span>
-                            </div>
-                        </div>
-                    </div>
-    
-                    <div class="visual" aria-hidden="true">
-                        <div class="product-stage">
-                            <div class="floating-card card-one">
-                                <strong>Натурально</strong>
-                                <span>100%</span>
-                            </div>
-                            <div class="jar">
-                                <div class="label">Sweet Bloom</div>
-                            </div>
-                            <div class="floating-card card-two">
-                                <strong>Смак</strong>
-                                <span>Ягідний</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section><section id="about" class="section">
-                <div class="container">
-                    <div class="section-head">
-                        <div>
-                            <div class="section-label">Про нас</div>
-                            <h2>Смак, який нагадує про найкращі моменти життя</h2>
-                        </div>
-                        <p>Ми любимо прості інгредієнти й вироби, які створюють атмосферу затишку, радості та повсякденної насолоди.
-                        </p>
-                    </div>
-            
-                    <div class="about-grid">
-                        <article class="info-card">
-                            <div class="icon-wrap">🌿</div>
-                            <h3>Натуральні інгредієнти</h3>
-                            <p>Вибираємо лише свіжі фрукти, ягоди, горіхи та вершки без зайвих добавок та штучних ароматизаторів.
-                            </p>
-                        </article>
-                        <article class="info-card">
-                            <div class="icon-wrap">✨</div>
-                            <h3>Ручне приготування</h3>
-                            <p>Кожна партія готується з увагою до деталей, щоб ви отримали не просто продукт, а справжнє відчуття
-                                окремого смаку.</p>
-                        </article>
-                        <article class="info-card">
-                            <div class="icon-wrap">🎁</div>
-                            <h3>Для кожного дня</h3>
-                            <p>Від подарунків до повсякденної маленької радості — наші ласощі підходять для особливих моментів та
-                                звичайних вечорів.</p>
-                        </article>
-                    </div>
-                </div>
-            </section>
-            
-            <section id="goods" class="section">
-                <div class="container">
-                    <div class="section-head">
-                        <div>
-                            <div class="section-label">Товари</div>
-                            <h2>Найулюбленіші смаки</h2>
-                        </div>
-                        <p>Збалансовані рецепти, приємна текстура та аромат, який пахне природою з першого ж укусу.</p>
-                    </div>
-            
-                    <div class="goods-grid">
-                        <article class="product-card">
-                            <div class="product-thumb"></div>
-                            <div class="product-body">
-                                <div class="tag">Популярне</div>
-                                <h3>Ягідний бум</h3>
-                                <div class="rating">★★★★★</div>
-                                <div class="product-meta">
-                                    <div class="price">299 ₴</div>
-                                    <button class="add-btn">Купити</button>
-                                </div>
-                            </div>
-                        </article>
-            
-                        <article class="product-card">
-                            <div class="product-thumb"
-                                style="background: linear-gradient(135deg, rgba(255, 200, 154, 0.8), rgba(255, 242, 210, 0.5));">
-                            </div>
-                            <div class="product-body">
-                                <div class="tag">Нова</div>
-                                <h3>Карамельна радість</h3>
-                                <div class="rating">★★★★★</div>
-                                <div class="product-meta">
-                                    <div class="price">329 ₴</div>
-                                    <button class="add-btn">Купити</button>
-                                </div>
-                            </div>
-                        </article>
-            
-                        <article class="product-card">
-                            <div class="product-thumb"
-                                style="background: linear-gradient(135deg, rgba(187, 228, 151, 0.8), rgba(255, 255, 255, 0.42));">
-                            </div>
-                            <div class="product-body">
-                                <div class="tag">Вітамінно</div>
-                                <h3>Лісова свіжість</h3>
-                                <div class="rating">★★★★★</div>
-                                <div class="product-meta">
-                                    <div class="price">279 ₴</div>
-                                    <button class="add-btn">Купити</button>
-                                </div>
-                            </div>
-                        </article><article class="product-card">
-                            <div class="product-thumb"
-                                style="background: linear-gradient(135deg, rgba(255, 174, 183, 0.75), rgba(255, 233, 179, 0.5));"></div>
-                            <div class="product-body">
-                                <div class="tag">Ліміт</div>
-                                <h3>Малина-ваніль</h3>
-                                <div class="rating">★★★★★</div>
-                                <div class="product-meta">
-                                    <div class="price">349 ₴</div>
-                                    <button class="add-btn">Купити</button>
-                                </div>
-                            </div>
-                        </article>
-                        </div>
-                        </div>
-                        </section>
-                        
-                        <section id="tastes" class="section">
-                            <div class="container">
-                                <div class="section-head">
-                                    <div>
-                                        <div class="section-label">Смаки</div>
-                                        <h2>Світ смаків у кожній коробці</h2>
-                                    </div>
-                                    <p>Поєднуємо вишукані аромати з ніжною текстурою, щоб кожен смак залишався в пам’яті надовго.</p>
-                                </div>
-                        
-                                <div class="flavors">
-                                    <article class="flavor-card" style="--tone: linear-gradient(135deg, #f7c0b0, #ffebae);">
-                                        <h3>Кавун</h3>
-                                        <p>Свіжий, соковитий смак літа з легкою солодкістю та соковитим післясмаком.</p>
-                                    </article>
-                                    <article class="flavor-card" style="--tone: linear-gradient(135deg, #f7d388, #f8af69);">
-                                        <h3>Апельсин</h3>
-                                        <p>Яскравий цитрусовий аромат, який освіжає і додає енергії в будь-який день.</p>
-                                    </article>
-                                    <article class="flavor-card" style="--tone: linear-gradient(135deg, #9bd492, #dfe7a7);">
-                                        <h3>Ліщина</h3>
-                                        <p>Глибокий оріховий смак із кремовою текстурою та майже карамельним відтінком.</p>
-                                    </article>
-                                    <article class="flavor-card" style="--tone: linear-gradient(135deg, #e6b5f2, #f9d7d7);">
-                                        <h3>Малина</h3>
-                                        <p>Ніжний ягідний смак із трохи терпкою ноткою і легким, соковитим післясмаком.</p>
-                                    </article>
-                                </div>
-                            </div>
-                        </section>
-                        
-                        <section id="contacts" class="section">
-                            <div class="container contacts-wrap">
-                                <div class="contact-card">
-                                    <div class="section-label">Контакти</div>
-                                    <h2>Пишіть, ми завжди на зв’язку</h2>
-                                    <a class="contact-link" href="tel:+380991234567"><span class="dot"></span> +38 (099) 123 45 67</a>
-                                    <a class="contact-link" href="mailto:hello@sweetbloom.ua"><span class="dot"></span> hello@sweetbloom.ua</a>
-                        
-                                    <div class="info-list">
-                                        <div class="contact-item">
-                                            <strong>Адреса</strong>
-                                            м. Київ, вул. Лісківська 14
-                                        </div>
-                                        <div class="contact-item">
-                                            <strong>Графік</strong>
-                                            Пн–Сб, 9:00–19:00
-                                        </div>
-                                        <div class="contact-item">
-                                            <strong>Instagram</strong>
-                                            @sweetbloom.ua
-                                        </div>
-                                        <div class="contact-item">
-                                            <strong>Безкоштовно</strong>
-                                            Доставка від 900 ₴
-                                        </div>
-                                    </div>
-                                </div><aside class="newsletter">
-                                    <h3>Підписуйся на новини</h3>
-                                    <p>Отримуйте нові смаки, сезонні пропозиції та персональні знижки на пошту.</p>
-                                    <form class="form-row">
-                                        <input type="email" placeholder="Ваш e-mail" aria-label="Email">
-                                        <button type="submit">Підписатися</button>
-                                    </form>
-                                </aside>
-                                </div>
-                                </section>
-                                </main>
-                                
-                                <footer>
-                                    <div class="container footer-row">
-                                        <div>© 2026 Sweet Bloom</div>
-                                        <div>Made with care for your sweetest moments</div>
-                                    </div>
-                                </footer>
-                                </body>
-                                
-                                </html>
+        </nav>
+    </header>
+
+    <main>
+        <section id="hero">
+            <div class="hero-title-box">
+                <h1>Спробуй<br>найкраще<br>морозиво</h1>
+                <!-- Декоративные мини-рожки возле заголовка -->
+                <svg class="mini-cones-decor" viewBox="0 0 80 70" fill="none">
+                    <!-- Маленький левый рожок -->
+                    <g transform="translate(4, 24) rotate(-18)">
+                        <polygon points="4,12 14,12 9,28" fill="#F4C17A" stroke="#222" stroke-width="1" />
+                        <circle cx="9" cy="10" r="5" fill="#FFB3C6" stroke="#222" stroke-width="1" />
+                    </g>
+                    <!-- Большой правый рожок -->
+                    <g transform="translate(38, 2) rotate(24)">
+                        <polygon points="4,16 20,16 12,42" fill="#F4C17A" stroke="#222" stroke-width="1.2" />
+                        <circle cx="12" cy="13" r="7.5" fill="#BCE0FD" stroke="#222" stroke-width="1.2" />
+                        <circle cx="12" cy="7" r="4.5" fill="#FFFFFF" stroke="#222" stroke-width="1" />
+                    </g>
+                    <!-- Нижний рожок -->
+                    <g transform="translate(34, 42) rotate(12)">
+                        <polygon points="3,10 13,10 8,24" fill="#F4C17A" stroke="#222" stroke-width="1" />
+                        <circle cx="8" cy="8" r="4.5" fill="#FFD1DC" stroke="#222" stroke-width="1" />
+                    </g>
+                </svg>
+            </div>
+
+            <img src="img/Untitled design (27) 1.png" alt="морозиво" class="hero-image">
+
+            <p>Справжнє італійське джелато з натуральних інгредієнтів.
+                Ми створюємо морозиво з любов'ю вже понад 15 років,
+                використовуючи лише свіжі фрукти, справжні вершки
+                та перевірені сімейні рецепти.</p>
+
+            <a href="#offers" class="hero-btn">Дізнатись більше</a>
+        </section>
+
+        <section id="menu">
+            <h2>Ми дбаємо про тебе</h2>
+            <img src="img/Untitled design (6) 1.png" alt="Меню" class="hero-image">
+            <p>Наше морозиво — це не просто десерт, це справжня магія смаку. Ми використовуємо тільки натуральне молоко
+                з українських
+                ферм та свіжі сезонні фрукти.
+                Кожна порція містить любов та турботу наших
+                майстрів, які вдосконалюють рецепти вже три
+                покоління.</p>
+            <img src="img/Untitled design (7) 1.png" alt="Меню" class="hero-image">
+            <p>Історія нашої родинної справи почалася у 1998 році,
+                коли бабуся Марія вперше приготувала морозиво за
+                італійським рецептом. Сьогодні ми зберігаємо традиції,
+                поєднуючи їх із сучасними технологіями.
+                Ми віримо: морозиво має приносити радість! Тому
+                ретельно обираємо кожен інгредієнт та контролюємо
+                якість на всіх етапах виробництва.</p>
+            <button>Дізнатися більше</button>
+            <button>Завантажити застосунок</button>
+        </section>
+
+        <section id="offers">
+            <h2>Наш асортимент</h2>
+            <ul>
+                <li>
+                    <img src="img/Untitled design (16) 1 (1).png" alt="Ріжки">
+                    <h3>Ріжки</h3>
+                    <img src="img/Untitled design (21) 1.png" alt="">
+                    <p>Хрусткі вафельні ріжки з ніжним морозивом. Класика, яка ніколи не виходить з моди!</p>
+                    <button><img src="img/Arrow 1.png" alt=""></button>
+                </li>
+                <li>
+                    <img src="img/Untitled design (13) 2.png" alt="Напої">
+                    <h3>Напої</h3>
+                    <img src="img/Untitled design (19) 1.png" alt="">
+                    <p>Свіжі та натуральні напої, які допоможуть вам почути себе краще.</p>
+                    <button><img src="img/Arrow 1.png" alt=""></button>
+                </li>
+                <li>
+                    <img src="img/Untitled design (11) 1.png" alt="Морозиво">
+                    <h3>Морозиво</h3>
+                    <img src="img/Untitled design (18) 1.png" alt="">
+                    <p>Різноманітні смаки на паличці та у стаканчиках. Понад 20 видів на будь-який смак!</p>
+                    <button><img src="img/Arrow 1.png" alt=""></button>
+                </li>
+            </ul>
+        </section>
+
+        <section id="app">
+            <ul>
+                <li>Ваніль</li>
+                <li>Чорниця</li>
+                <li>Шоколад</li>
+                <li>Полуниця</li>
+                <li>Фісташка</li>
+                <li>Манго</li>
+            </ul>
+            <img src="img/Group 63.png" alt="">
+            <h2>Небесні смаки</h2>
+            <img src="img/Group 56.png" alt="">
+            <p>Відкрийте для себе унікальні комбінації смаків!
+                Від класичної ванілі до екзотичного манго — кожен знайде своє улюблене морозиво.
+                Наші майстри постійно експериментують,
+                створюючи нові рецепти.</p>
+            <button>Дізнатися більше</button>
+            <button>Спробувати</button>
+        </section>
+
+        <section id="contact">
+            <form>
+                <input type="email" placeholder="Введіть ваш email">
+                <button>Зв'язатися</button>
+            </form>
+            <ul>
+                <li><a href="https://www.instagram.com/" target="_blank"><img src="img/icon-park_instagram.png"
+                            alt="Instagram"></a></li>
+                <li><a href="https://www.facebook.com/" target="_blank"><img src="img/openmoji_facebook.png"
+                            alt="Facebook"></a></li>
+            </ul>
+            <img src="img/Ellipse 7.png" alt="">
+        </section>
+    </main>
+
+    <footer>
+        <img src="img/logo.png" alt="">
+        <nav>
+            <ul>
+                <li><a href="#hero">Головна</a></li>
+                <li><a href="#menu">Про нас</a></li>
+                <li><a href="#contact">Контакти</a></li>
+            </ul>
+        </nav>
+        <input type="text" placeholder="Підписатися на новини">
+        <button>Підписатися</button>
+        <p>© 2026 Rainbow Icecream Лендінг розроблено [Ім'я учня]</p>
+    </footer>
+
+</body>
+
+</html>
